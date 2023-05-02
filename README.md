@@ -12,7 +12,7 @@ The distribution is hosted on pypi at: '#'. To directly install the package from
 
 ## Setup
 
-This is to be set once globally (instantiated) from within the project.
+This is to be set once globally (instantiated) from within the project, and used everywhere else
 
 ```py
 from everylog.everylog_python_client import EveryLogPythonClient
@@ -20,13 +20,11 @@ from everylog.everylog_python_client import EveryLogPythonClient
 client = EveryLogPythonClient()
 client.setup(api_key='<YOUR_API_KEY>', projectId='<YOUR_PROJECT_NAME>')
 
-```
+
 
 # Notifying the logs whenever you choose to.
 
-Uses the instantiated object from the class and notify by setting different options.
-
-```
+### Uses the instantiated object from the class and notify by setting different options.
 
 # @param [Dictionary] notify_options
 # @option notify_options [String, options[:projectId]]  :projectId name of the project
@@ -41,7 +39,7 @@ Uses the instantiated object from the class and notify by setting different opti
 # @option notify_options [Dictionary] :properties
 # @option notify_options [Array]   :groups
 
-client.notify({...notify_options})
+client.notify(title='<Sample Title>')
 
 ```
 
