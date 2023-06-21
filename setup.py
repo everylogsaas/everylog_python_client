@@ -6,6 +6,7 @@ setup(
     description='EveryLog provides a simple way to receive notifications for important application events that you choose.',
     install_requires=['requests'],
     author='Gasana Manzi David',
+    author_email='david.gasana@devinterface.com'
     package_dir={'.': '/src/everylog_python_client'},
     py_modules=['everylog_python_client'],
     python_require=">=2.7",
