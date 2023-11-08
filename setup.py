@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='everylog_python_client',
-    version='0.0.1',
+    version='1.5.0',
     description='EveryLog provides a simple way to receive notifications for important application events that you choose.',
     install_requires=['requests'],
     author='Gasana Manzi David',
