@@ -1,16 +1,16 @@
 import unittest
-from evelylog.everylog_python_client import EveryLogPythonClient
+from evelylog.everylog_python_client import EverylogPythonClient
 from unittest import mock
 
 
-class TestEveryLogPythonClient(unittest.TestCase):
+class TestEverylogPythonClient(unittest.TestCase):
     def test_setup(self):
         options = {
             'api_key': 'API_KEY',
             'projectId': 'PROJECT_ID',
             'everylog_url': 'https://api.everylog.io/api/v1/log-entries'
         }
-        self.client = EveryLogPythonClient()
+        self.client = EverylogPythonClient()
         self.client.setup(options) 
         self.assertEqual(self.client.options['api_key'], 'API_KEY')
         self.assertEqual(self.client.options['projectId'], 'PROJECT_ID')
@@ -22,7 +22,7 @@ class TestEveryLogPythonClient(unittest.TestCase):
             'projectId': 'PROJECT_ID',
             'everylog_url': 'https://api.everylog.io/api/v1/log-entries'
         }
-        self.client = EveryLogPythonClient()
+        self.client = EverylogPythonClient()
         self.client.setup(options) 
         notify_options = {
             'title': 'Test Title',
@@ -62,7 +62,7 @@ class TestEveryLogPythonClient(unittest.TestCase):
                 'projectId': 'PROJECT_ID',
                 'everylog_url': 'https://api.everylog.io/api/v1/log-entries'
             }
-            self.client = EveryLogPythonClient()
+            self.client = EverylogPythonClient()
             self.client.setup(options) 
             notify_options = {
                 'title': 'Test Title',

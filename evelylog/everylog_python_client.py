@@ -2,7 +2,7 @@
 import json
 import requests
 
-class EveryLogPythonClient:
+class EverylogPythonClient:
     SETUP_DEFAULTS = {
         "api_key": None,
         "projectId": None,

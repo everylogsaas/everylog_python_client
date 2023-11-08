@@ -17,7 +17,7 @@ This is to be set once globally (instantiated) from within the project, and used
 ```py
 from everylog.everylog_python_client import EveryLogPythonClient
 
-client = EveryLogPythonClient()
+client = EverylogPythonClient()
 client.setup(api_key='<YOUR_API_KEY>', projectId='<YOUR_PROJECT_NAME>')
 
 
