@@ -18,7 +18,7 @@ class EverylogPythonClient:
         "push": False,
         "icon": "",
         "externalChannels": [],
-        "properties": {},
+        "properties": [{}],
         "groups": [],
     }
 
@@ -41,7 +41,10 @@ class EverylogPythonClient:
         }
 
         response = requests.post(self.options["everylog_url"], data=json.dumps(merged_options), headers=headers)
-        return response.json()
+        if(response.status_code == 200):
+            return response
+        else:
+            return response.json()
 
     def _parse_options(self, options, defaults_to_dup):
         defaults = defaults_to_dup.copy()
@@ -54,5 +57,13 @@ class EverylogPythonClient:
                 result_parsed_options[key] = result_parsed_options[key]
             else:
                 result_parsed_options[key] = defaults[key]
+
+        # Ensure properties is an array of dictionaries
+        if "properties" in result_parsed_options:
+            if not isinstance(result_parsed_options["properties"], list):
+                raise ValueError("Properties must be a list of dictionaries.")
+            for item in result_parsed_options["properties"]:
+                if not isinstance(item, dict):
+                    raise ValueError("Each property must be a dictionary.")
 
         return result_parsed_options
