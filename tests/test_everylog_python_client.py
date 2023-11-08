@@ -24,7 +24,7 @@ class TestEverylogPythonClient(unittest.TestCase):
         }
         self.client = EverylogPythonClient()
         self.client.setup(options) 
-        notify_options = {
+        log_entry_options = {
             'title': 'Test Title',
             'summary': 'Test Summary',
             'body': 'Test Body',
@@ -45,7 +45,7 @@ class TestEverylogPythonClient(unittest.TestCase):
             mock_response.status_code = expected_status_code
             mock_post.return_value = mock_response
 
-            response = self.client.notify(notify_options)
+            response = self.client.create_log_entry(log_entry_options)
 
             mock_post.assert_called_once_with(
                 self.client.SETUP_DEFAULTS["everylog_url"],
@@ -64,7 +64,7 @@ class TestEverylogPythonClient(unittest.TestCase):
             }
             self.client = EverylogPythonClient()
             self.client.setup(options) 
-            notify_options = {
+            log_entry_options = {
                 'title': 'Test Title',
                 'summary': 'Test Summary',
                 'body': 'Test Body',
@@ -85,7 +85,7 @@ class TestEverylogPythonClient(unittest.TestCase):
                 mock_response.status_code = expected_status_code
                 mock_post.return_value = mock_response
 
-                response = self.client.notify(notify_options)
+                response = self.client.create_log_entry(log_entry_options)
 
                 mock_post.assert_called_once_with(
                     self.client.SETUP_DEFAULTS["everylog_url"],

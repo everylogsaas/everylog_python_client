@@ -9,7 +9,7 @@ class EverylogPythonClient:
         "everylog_url": "https://api.everylog.io/api/v1/log-entries"
     }
 
-    NOTIFY_DEFAULTS = {
+    LOG_ENTRY_DEFAULTS = {
         "title": "Empty notification",
         "summary": "Empty summary",
         "body": "Empty body",
@@ -24,16 +24,16 @@ class EverylogPythonClient:
 
     def __init__(self):
         self.options = None
-        self.notify_options = None
+        self.log_entry_options = None
 
     def setup(self, options=None):
         self.options = self._parse_options(options or {}, self.SETUP_DEFAULTS)
         return self
 
-    def notify(self, notify_options=None):
-        self.notify_options = self._parse_options(notify_options or {}, self.NOTIFY_DEFAULTS)
+    def create_log_entry(self, log_entry_options=None):
+        self.log_entry_options = self._parse_options(log_entry_options or {}, self.LOG_ENTRY_DEFAULTS)
         
-        merged_options = {**{"projectId": self.options["projectId"]}, **self.notify_options}
+        merged_options = {**{"projectId": self.options["projectId"]}, **self.log_entry_options}
 
         headers = {
             "Content-Type": "application/json",

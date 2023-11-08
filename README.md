@@ -39,7 +39,7 @@ client.setup(api_key='<YOUR_API_KEY>', projectId='<YOUR_PROJECT_NAME>')
 # @option notify_options [Dictionary] :properties
 # @option notify_options [Array]   :groups
 
-client.notify(title='<Sample Title>')
+client.create_log_entry(title='<Sample Title>')
 
 ```
 
