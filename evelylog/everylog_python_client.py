@@ -2,14 +2,14 @@
 import json
 import requests
 
-class EveryLogPythonClient:
+class EverylogPythonClient:
     SETUP_DEFAULTS = {
         "api_key": None,
         "projectId": None,
         "everylog_url": "https://api.everylog.io/api/v1/log-entries"
     }
 
-    NOTIFY_DEFAULTS = {
+    LOG_ENTRY_DEFAULTS = {
         "title": "Empty notification",
         "summary": "Empty summary",
         "body": "Empty body",
@@ -18,22 +18,22 @@ class EveryLogPythonClient:
         "push": False,
         "icon": "",
         "externalChannels": [],
-        "properties": {},
+        "properties": [{}],
         "groups": [],
     }
 
     def __init__(self):
         self.options = None
-        self.notify_options = None
+        self.log_entry_options = None
 
     def setup(self, options=None):
         self.options = self._parse_options(options or {}, self.SETUP_DEFAULTS)
         return self
 
-    def notify(self, notify_options=None):
-        self.notify_options = self._parse_options(notify_options or {}, self.NOTIFY_DEFAULTS)
+    def create_log_entry(self, log_entry_options=None):
+        self.log_entry_options = self._parse_options(log_entry_options or {}, self.LOG_ENTRY_DEFAULTS)
         
-        merged_options = {**{"projectId": self.options["projectId"]}, **self.notify_options}
+        merged_options = {**{"projectId": self.options["projectId"]}, **self.log_entry_options}
 
         headers = {
             "Content-Type": "application/json",
@@ -41,7 +41,10 @@ class EveryLogPythonClient:
         }
 
         response = requests.post(self.options["everylog_url"], data=json.dumps(merged_options), headers=headers)
-        return response.json()
+        if(response.status_code == 200):
+            return response
+        else:
+            return response.json()
 
     def _parse_options(self, options, defaults_to_dup):
         defaults = defaults_to_dup.copy()
@@ -54,5 +57,13 @@ class EveryLogPythonClient:
                 result_parsed_options[key] = result_parsed_options[key]
             else:
                 result_parsed_options[key] = defaults[key]
+
+        # Ensure properties is an array of dictionaries
+        if "properties" in result_parsed_options:
+            if not isinstance(result_parsed_options["properties"], list):
+                raise ValueError("Properties must be a list of dictionaries.")
+            for item in result_parsed_options["properties"]:
+                if not isinstance(item, dict):
+                    raise ValueError("Each property must be a dictionary.")
 
         return result_parsed_options
